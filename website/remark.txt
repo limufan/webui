@@ -1,0 +1,2 @@
+datagrid: sort事件不兼容改变
+pagation size 为可变需要通过getPageSize获取

@@ -1,0 +1,377 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>web ui</title>
+        <link type="text/css" href="css/webui.css" rel="stylesheet" />
+        <!--[if lt IE 9]>
+        <link type="text/css" href="css/webui-ie8.css" rel="stylesheet" />
+        <![endif]-->
+        <link type="text/css" href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+        <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="js/jquery-extend.js"></script>
+        <script type="text/javascript" src="js/is.js"></script>
+        <script type="text/javascript" src="js/fecha.js"></script>
+        <script type="text/javascript" src="js/webui-mask.js"></script>
+        <script type="text/javascript" src="js/webui-input.js"></script>
+        <script type="text/javascript" src="js/webui-selectInput.js"></script>
+        <script type="text/javascript" src="js/webui-textbox.js"></script>
+        <script type="text/javascript" src="js/webui-dateInput.js"></script>
+        <script type="text/javascript" src="js/webui-checkboxList.js"></script>
+        <script type="text/javascript" src="js/webui-dateRangeInput.js"></script>
+        <script type="text/javascript" src="js/webui-numberInput.js"></script>
+        <script type="text/javascript" src="js/webui-numberRangeInput.js"></script>
+        <script type="text/javascript" src="js/webui-radioList.js"></script>
+        <script type="text/javascript" src="js/webui-simpleSelect.js"></script>
+        <script type="text/javascript" src="js/webui-textarea.js"></script>
+        <script type="text/javascript" src="js/webui-complexSelect.js"></script>
+        <script type="text/javascript" src="js/webui-form.js"></script>
+        <script type="text/javascript" src="js/webui-datagrid.js"></script>
+        <script type="text/javascript" src="js/webui-hiddenInput.js"></script>
+        <script type="text/javascript" src="js/webui-boolRadio.js"></script>
+        <script type="text/javascript" src="js/webui-boolCheckbox.js"></script>
+        <script type="text/javascript" src="js/webui-tree.js"></script>
+        <script type="text/javascript" src="js/webui-messageBox.js"></script>
+        <script type="text/javascript" src="js/webui-label.js"></script>
+        <script type="text/javascript" src="js/webui-dateTimeInput.js"></script>
+        <script type="text/javascript" src="js/webui-dateTimeRangeInput.js"></script>
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body  style="padding-top: 60px;">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand navbar-brand-logo" href="#">webui demo</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="webui-form.html">form</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div style="text-align:center"><h3>web form</h3></div> 
+            
+            <fieldset>
+                <legend>details</legend>
+            </fieldset>
+            <form id="webform" class="form-horizontal" role="form">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label"><i class="fa fa-asterisk" style="color:red;"></i>Checkbox</label>
+                            <div class="control-input">
+                                <div name='checkboxList' class='webui-checkboxList' data-required="true" 
+                                    data-required-message="CheckboxList Required" data-default-value='["1"]' data-source="[1,2]">
+                                    
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label">Date input</label>
+                            <div class="control-input">
+                                <input name='dateInput' type='text' data-default-value="2014-03-01" class='form-control webui-dateInput'/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                  <div class="row">
+                    <div class="col-6">
+                          <div class="form-group">
+                            <label  class="control-label">Date range input</label>
+                            <div class="control-input">
+                                <div name='dateRangeInput' data-required="true" class='input-group webui-dateRangeInput'>
+                                    <input class="form-control" type='text'/>
+                                    <span class="input-group-addon"  >到</span>
+                                    <input class="form-control" type='text'  />
+                                </div>
+                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                          <div class="form-group">
+                            <label  class="control-label">Number input</label>
+                            <div class="control-input">
+                                <input name='numberInput' data-zero-equal-empty="true" data-required-message="请填写Number input" data-precision="3" data-required="true" type='text' class='form-control webui-numberInput'/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                
+                <div class="row">
+                    <div class="col-6">
+                          <div class="form-group">
+                            <label  class="control-label">Number range input</label>
+                                <div class="control-input">
+                                    <div name='numberRangeInput' class='input-group webui-numberRangeInput'>
+                                        <input class="form-control" type='text' />
+                                        <span class="input-group-addon" >到</span>
+                                        <input class="form-control" type='text' />
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label">Radio</label>
+                            <div class="control-input">
+                                <div name='radioList' data-required="true" data-required-message="请选择Radio" class='webui-radioList' data-source="webui.select_source">
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label">Select</label>
+                            <div class="control-input">
+                                <select name='simpleSelect' class='form-control webui-simpleSelect' data-empty-message="请选择" data-source='webui.select_source2'>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label">Suggestion Textbox</label>
+                            <div class="control-input">
+                                <input name='suggestion' type='text' class='form-control webui-textbox' data-required="true" 
+                                    data-suggestions='webui.select_source'/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label">Bool Radio</label>
+                            <div class="control-input">
+                                <div name='boolRadio' data-required="true" class='webui-boolRadio'></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label">Bool Checkbox</label>
+                            <div class="control-input">
+                                <input type="checkbox" name='boolCheckbox' class='webui-boolCheckbox'/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label  class="control-label">Textarea</label>
+                            <div class="control-input">
+                                <textarea name='textarea' data-required="true" class='form-control webui-textarea'></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-6">
+                       <div class="form-group">
+                            <label  class="control-label">Textbox</label>
+                            <div class="control-input">
+                                <input name='textbox' type='text' class='form-control webui-textbox'/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label">Textbox Regex Validate</label>
+                            <div class="control-input">
+                                <input name='textboxValidator' type='text' data-validator="textbox_test_validator" data-required="true" class='form-control webui-textbox'/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+              <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label">Eamil Validate</label>
+                            <div class="control-input">
+                                <input name='email' type='text' data-validator="email" data-required="true" class='form-control webui-textbox'/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  
+              	<div class="row">
+                    <div class="col-6">
+                       <div class="form-group">
+                            <label  class="control-label">Multiple Select</label>
+                            <div class="control-input">
+                                <div id="complexSelect" name="complexSelect" class="form-control webui-complexSelect" data-required="true" data-source="webui.select_source1">
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label  class="control-label">Multiple Select1</label>
+                            <div class="control-input">
+                                <div class="input-group">
+                                    <div id="complexSelect1"  name="complexSelect1" class="form-control webui-complexSelect" data-single="true" data-source="data/complexSelect.js">
+                            
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button id="btnAddComplexSelect1" class="btn btn-default" type="button">添加</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                       <div class="form-group">
+                            <label class="control-label">DateTime</label>
+                            <div class="control-input">
+                                <input name='dateTime' type='text' data-default-time="18:00" class='form-control webui-dateTimeInput'/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                       <div class="form-group">
+                            <label  class="control-label">DateTime Range</label>
+                            <div class="control-input">
+                                <div name='dateTimeRangeInput' data-required="true" class='input-group webui-dateTimeRangeInput'>
+                                    <input class="form-control" type='text'/>
+                                    <span class="input-group-addon"  >到</span>
+                                    <input class="form-control" type='text'  />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                       <div class="form-group">
+                            <label  class="control-label">Label</label>
+                            <div class="control-input">
+                                <label name='dateLabel' class='form-control-static webui-label' data-render="date"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label  class="control-label">Grid</label>
+                            <div class="control-input">
+                                <div id="datagrid" name="datagrid" class="webui-datagrid"></div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="row" style="text-align: center">
+                    <button id="btnSubmit" type="submit" class="btn btn-default">Submit</button>
+                    <button id="btnReset" type="button" class="btn btn-default">Reset</button>
+                    <button id="btnReadonly" type="button" class="btn btn-default">Readonly</button>
+                </div>
+            </form>
+        </div>
+        
+    </body>
+</html>
+        <script type="text/javascript" src="tests/gremlins-config.js"></script>
+<script type="text/javascript" >
+    var webui = {};
+    webui.select_source = ["c","c++","c#"];
+    webui.select_source2 = [{group: "g1", source: ["c","c++","c#"]}];
+    webui.select_source1 = [
+        {icon: "glyphicon glyphicon-user", text: "c", summary: "sdfsdfsdfsdf"}, 
+        {icon: "glyphicon glyphicon-user", text: "C", summary: "sdfsdfsdfsdf斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬 sdfsdfsdfsdf斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬"}, 
+        {text: "c++"}, 
+        {text: "c#"}
+    ];
+    $("#datagrid").datagrid({
+        columns: [
+            {
+            name: "c1", title: "t111111111111111111", width: 200, field: "f1", sortBy: "desc", render: function (row, args) {
+                return "<a href='#" + args.data.id + "'>" + args.value + "</a>";
+            }},
+            { name: "c2", title: "t2", field: "f2", width: "20%" },
+            { name: "c3", title: "t3", field: "f3" },
+            {
+                name: "c4", title: "t4", field: "id", render: function (row, args) {
+                    return $("<a></a>").text("edit").attr("href", "#").click(function () {
+                        row.datarow("setValue", { id: args.data.id, f1: "update1", "f2": "update2" });
+                        return false;
+                    });
+                }
+            }
+        ],
+        footer:[
+            {columnName:"c1", colspan:2, valueType: "fixed", value: "合计"}, {columnName:"c3", valueType:"sum"}
+        ],
+        canSort: true,
+        singleSelect: false,
+        data: [{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" }, { id: 3, f1: "dsf11sd", "f2": "t2", f3: 32}],
+        showNumberRow: true
+    });
+    $("#webform").horizontalForm();
+    var form = $("#webform").form().data("form");
+    var numberInput = form.getInput("numberInput");
+    var textareaInput = form.getInput("textarea");
+    $("#btnSubmit").click(function(){
+        try{
+            if(form.validate()){
+                var value = form.getValue();
+                alert($.toJSON(value));
+            }
+        }
+        catch(e){
+            alert(e)
+        }
+        return false;
+    });
+    $("#btnReset").click(function(){
+        form.reset();
+        return false;
+    });
+    var readonly = false;
+    $("#btnReadonly").click(function(){
+        readonly = !readonly;
+        form.setReadonly(readonly);
+        return false;
+    });
+    var complexSelect1 = $("#complexSelect1").data("complexSelect");
+    $("#btnAddComplexSelect1").click(function(){
+        complexSelect1.appendTag({text: "foo"});
+    });
+    function textbox_test_validator(input, value){
+        var result = false;
+        result = /^\d{3}$/.test(value);
+        if(result){
+            input.hidePopMessage("格式为3位数字");
+        }
+        else{
+            input.popMessage("格式为3位数字");
+        }
+        return result;
+    }
+    form.inputing(function(input, value){
+        textareaInput.setValue(value);
+    });
+    form.changed(function(input, value){
+        textareaInput.setValue(value);
+    });
+    var formValue = {myValue:"123456789", "checkboxList":["1"],"dateInput":"2014-03-01T00:00:00","dateRangeInput":{"start":"2014-08-02T00:00:00","end":null},"numberInput":0,"numberRangeInput":null,"radioList":"2","simpleSelect":"1","textarea":"[object Object]","suggestion":"c++","textbox":null,"textboxValidator":"123","complexSelect":[{"icon":"glyphicon glyphicon-user","text":"c","summary":"sdfsdfsdfsdf"}],"complexSelect1":null,"datagrid":[{"id":1,"f1":"t122222222222222222222222444","f2":"t2","f3":31},{"id":2,"f1":"dsfsd","f2":"t2"},{"id":3,"f1":"dsf11sd","f2":"t2","f3":32}],"boolRadio":false,"boolCheckbox":false, "dateLabel": "2014-12-05T11:32:50", "dateTime":"2014-03-01T00:00:00"}
+    form.setValue(formValue);
+</script>

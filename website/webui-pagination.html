@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<title>webui-pagination</title>
+		<link type="text/css" href="css/webui.css" rel="stylesheet" />
+		<link type="text/css" href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery-extend.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	    <script type="text/javascript" src="js/webui-input.js"></script>
+        <script type="text/javascript" src="js/webui-datagrid.js"></script>
+		<script type="text/javascript" src="js/webui-pagination.js"></script>
+		<script type="text/javascript" src="js/jquery-extend.js"></script>
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+        
+	</head>
+	<body>
+        <div class="container-fluid">
+            <div >
+                <div id="datagrid"></div>
+                <div id="pagination">
+
+                </div>
+            </div>
+        </div>
+        
+	</body>
+</html>
+<script type="text/javascript" >
+ 	var pagination = $("#pagination").pagination({
+        start: 0, count: 1501, visiblePages: 10, 
+        change: function(event, args){
+            args.count = 1501;
+            pagination.setPageInfo(args);
+        }
+    }).data("pagination");
+    $("#datagrid").datagrid({
+            columns: [
+                {
+                name: "c1", title: "t111111111111111111", width: 200, field: "f1", sortBy: "desc", render: function (row, args) {
+                    return "<a href='#" + args.data.id + "'>" + args.value + "</a>";
+                }},
+                { name: "c2", title: "t2", field: "f2", width: "100%" },
+                { name: "c3", title: "t3", field: "f3" },
+                {
+                    name: "c4", title: "t4", field: "id", render: function (row, args) {
+                        return $("<a></a>").text("edit").attr("href", "#").click(function () {
+                            row.datarow("setValue", { id: args.data.id, f1: "update1", "f2": "update2" });
+                            return false;
+                        });
+                    }
+                },
+                { name: "c5", title: "t5", field: "f5" }
+            ],
+            footer:[
+                {columnName:"c1", colspan:2, valueType: "fixed", value: "合计"}, {columnName:"c3", valueType:"sum"}
+            ],
+            height: "auto",
+            canSort: true,
+            singleSelect: false,
+            data: [{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" },{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31},{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31},{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31},{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31},{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31},{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31},{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31},{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 3, f1: "dsf11sd", "f2": "t2", f3: 32, f5: [1,2,3]}],
+            showNumberRow: true,
+            dblclickRow: function(){
+                alert("dblclickRow");
+            }
+        });
+</script>

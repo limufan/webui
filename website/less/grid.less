@@ -1,0 +1,45 @@
+//
+// Grid system
+// --------------------------------------------------
+.container {
+  .container-fixed();
+}
+
+.container-fluid {
+  .container-fixed();
+}
+
+.row {
+	margin-left:  (@grid-gutter-width / -2);
+	margin-right: (@grid-gutter-width / -2);
+	&:extend(.clearfix all);
+}
+
+.make-grid();
+
+.container-fixed() {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:  (@grid-gutter-width / 2);
+  padding-right: (@grid-gutter-width / 2);
+  &:extend(.clearfix all);
+}
+
+.make-grid() {
+  .mark-grid-columns(@grid-columns);
+}
+// Basic looping in LESS
+.mark-grid-columns(@index) when (@index > 0) {
+  .col-@{index} {
+    width: percentage((@index / @grid-columns));
+	float: left;
+	position: relative;
+    // Prevent columns from collapsing when empty
+    min-height: 1px;
+    // Inner gutter via padding
+    padding-left:  (@grid-gutter-width / 2);
+    padding-right: (@grid-gutter-width / 2);
+  }
+  // next iteration
+  .mark-grid-columns((@index - 1));
+}

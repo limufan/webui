@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>datagrid</title>
+    <link type="text/css" href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+    <link type="text/css" href="css/webui.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery-extend.js"></script>
+    <script type="text/javascript" src="js/is.js"></script>
+	<script type="text/javascript" src="js/webui-input.js"></script>
+    <script type="text/javascript" src="js/webui-datagrid.js"></script>
+    <script type="text/javascript" src="js/webui-pagination.js"></script>
+</head>
+<style>
+    body
+    {
+        font-size: 13px;
+    }
+</style>
+<body>
+    <div class="buttons">
+        <input type="button" value="add" />
+        <input type="button" value="modify first" />
+        <input type="button" value="delete selected" />
+        <input type="button" value="set width 800" />
+        <input type="button" value="set width 500" />
+        <input type="button" value="set height 300" />
+        <input type="button" value="set height 100" />
+        <input type="button" value="set data" />
+        <input type="button" value="set 3 columns" />
+        <input type="button" value="set 6 columns" />
+        <input id="btnShowFooter" type="button" value="show footer" />
+        <input id="btnHideFooter" type="button" value="hide footer" />
+    </div>
+    <br/>
+    <div id="datagrid"></div>
+    <div id="datagridPagger"></div>
+</body>
+</html>
+<script type="text/javascript">
+    
+    $(function () {
+        $("#datagrid").datagrid({
+            columns: [
+                {
+                name: "c1", title: "t111111111111111111", width: 200, field: "f1", orderBy: "c1", render: function (row, args) {
+                    return "<a href='#" + args.data.id + "'>" + args.value + "</a>";
+                }},
+                { name: "c2", title: "t2", field: "f2", width: "100%" },
+                { name: "c3", title: "t3", field: "f3", render: "intEditor" },
+                {
+                    name: "c4", title: "t4", field: "id", render: function (row, args) {
+                        return $("<a></a>").text("edit").attr("href", "#").click(function () {
+                            row.datarow("setValue", { id: args.data.id, f1: "update1", "f2": "update2" });
+                            return false;
+                        });
+                    }
+                },
+                { name: "c5", title: "t5", field: "f5" }
+            ],
+            footer:[
+                {columnName:"c1", colspan:2, valueType: "fixed", value: "合计"}, {columnName:"c3", valueType:"sum"}
+            ],
+            canSort: true,
+            singleSelect: false,
+            data: [{ id: 1, f1: "t122222222222222222222222444", "f2": "t2", f3: 31}, { id: 2, f1: "dsfsd", "f2": "t2" }, { id: 3, f1: "dsf11sd", "f2": "t2", f3: 32, f5: [1,2,3]}],
+            showNumberRow: true,
+            dblclickRow: function(){
+                alert("dblclickRow");
+            },
+            sort: function(datagrid, args){
+                alert(args.orderBy + args.descending);
+            }
+        });
+        $(".buttons input[type='button']")
+        .eq(0).click(function () {
+            $("#datagrid").datagrid("appendRow", { f1: "new1", "f2": "new12", f3: 3  });
+        }).end()
+        .eq(1).click(function () {
+            var datarow = $("#datagrid").datagrid("getSelectedRow");
+            datarow.datarow("setValue", { f1: "update1", "f2": "update2" });
+        }).end()
+        .eq(2).click(function () {
+            $("#datagrid").datagrid("deleteSelectedRows");
+        }).end()
+        .eq(3).click(function () {
+            $("#datagrid").datagrid("setSize", {width:800});
+        }).end()
+        .eq(4).click(function () {
+            $("#datagrid").datagrid("setSize", {width:500});
+        }).end()
+        .eq(5).click(function () {
+            $("#datagrid").datagrid("setSize", {height:300});
+        }).end()
+        .eq(6).click(function () {
+            $("#datagrid").datagrid("setSize", {height:100});
+        }).end()
+        .eq(7).click(function () {
+            $("#datagrid").datagrid("setValue", [{ id: 1, f1: "123", "f2": "t2斯蒂芬斯蒂芬斯蒂适当的说法芬斯的" }, { id: 2, f1: "123", "f2": "t2" }, { id: 3, f1: "123213", "f2": "t2" }]);
+        }).end()
+        .eq(8).click(function () {
+            $("#datagrid").datagrid("setColumns", [
+            { name: "c1", title: "t2", field: "f2" },
+            { name: "c2", title: "t3", field: "f3" },
+            {
+                name: "c3", title: "t4", field: "id", render: function (row, args) {
+                    return $("<a></a>").text("edit").attr("href", "#").click(function () {
+                        row.datarow("setValue", { id: args.data.id, f1: "update1", "f2": "update2" });
+                        return false;
+                    });
+                }
+            }
+            ]);
+        }).end()
+        .eq(9).click(function () {
+            $("#datagrid").datagrid("setColumns", [
+            { name: "c1", title: "t1", field: "f1" },
+            { name: "c2", title: "t2", field: "f2" },
+            { name: "c3", title: "t3", field: "f3" },
+            {
+                name: "c4", title: "t4", field: "id", render: function (row, args) {
+                    return $("<a></a>").text("edit").attr("href", "#").click(function () {
+                        row.datarow("setValue", { id: args.data.id, f1: "update1", "f2": "update2" });
+                        return false;
+                    });
+                }
+            },
+            { name: "c5", title: "t5", field: "f3" },
+            { name: "c6", title: "t6", field: "f3" }
+            ]);
+        }).end();
+        $("#btnShowFooter").click(function(){
+            $("#datagrid").datagrid("setFooter", [{columnName:"c1", colspan:2, valueType: "fixed", value: "合计"}, {columnName:"c3", valueType:"sum"}]);
+        });
+        $("#btnHideFooter").click(function(){
+            $("#datagrid").datagrid("setFooter", null);
+        });
+
+        $("#datagridPagger").pagination({count: 10000, size: 50, change: function(pager, args){
+            args.count = 10000;
+            $("#datagridPagger").data("pagination").setPageInfo(args);
+        }});
+    })
+</script>

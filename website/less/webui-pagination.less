@@ -1,0 +1,95 @@
+//
+// Pagination (multiple pages)
+// --------------------------------------------------
+.webui-pagination {
+  padding: @padding-base-vertical 0;
+}
+.webui-pagination-nav{
+	float:left;
+    padding: 0;
+    margin: 0;
+    list-style:none;
+	> li {
+		display: block;
+        float:left;
+        margin-left:-1px;
+		> a,
+		> span {
+		  position: relative;
+		  float: left; // Collapse white-space
+		  padding: @padding-base-vertical @padding-base-horizontal;
+		  line-height: @line-height-base;
+		  text-decoration: none;
+		  color: @pagination-color;
+		  background-color: @pagination-bg;
+		  border: 1px solid @pagination-border;
+		  margin-left: -1px;
+    }
+    &:first-child {
+      > a,
+      > span {
+        margin-left: 0;
+        .border-left-radius(@border-radius-base);
+      }
+    }
+    &:last-child {
+      > a,
+      > span {
+        .border-right-radius(@border-radius-base);
+      }
+    }
+  }
+
+  > li > a,
+  > li > span {
+    &:hover,
+    &:focus {
+      color: @pagination-hover-color;
+      background-color: @pagination-hover-bg;
+      border-color: @pagination-hover-border;
+    }
+  }
+
+  > .active > a,
+  > .active > span {
+    &,
+    &:hover,
+    &:focus {
+      z-index: 2;
+      color: @pagination-active-color;
+      background-color: @pagination-active-bg;
+      border-color: @pagination-active-border;
+      cursor: default;
+    }
+  }
+  > .disabled {
+    > span,
+    > span:hover,
+    > span:focus,
+    > a,
+    > a:hover,
+    > a:focus {
+      color: @pagination-disabled-color;
+      background-color: @pagination-disabled-bg;
+      border-color: @pagination-disabled-border;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.webui-pagination-input
+{
+    display: block;
+    float:left;
+    margin: 0 @padding-base-horizontal;
+	.form-control{
+		display: inline-block;
+		width: 50px;
+	}
+}
+.webui-pagination-summary
+{
+    margin: 0 @padding-base-horizontal;
+	padding: @padding-base-vertical @padding-base-horizontal;
+    float: left;
+}

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<title>webui-popoverTrigger</title>
+		<link type="text/css" href="css/webui.css" rel="stylesheet" />
+		<link type="text/css" href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery-extend.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/webui-popoverTrigger.js"></script>
+		<script type="text/javascript" src="js/jquery-extend.js"></script>
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+        <div class="container">
+            <div style="margin-top: 300px;margin-left: 300px;">
+		        <button id="btnBottomPopover" type="button" >bottom popover</button>
+		        <button id="btnLeftPopover" type="button" >left popover</button>
+		        <button id="btnRightPopover" type="button" >right popover</button>
+		        <button id="btnTopPopover" type="button" >top popover</button>
+            </div>
+        </div>
+        <div class="bs-example bs-example-popover">
+            <div class="popover top">
+                <div class="arrow"></div>
+                <h3 class="popover-title">Popover top</h3>
+                <div class="popover-content">
+                <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                </div>
+            </div>
+
+            <div class="popover right">
+                <div class="arrow"></div>
+                <h3 class="popover-title">Popover right</h3>
+                <div class="popover-content">
+                <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                </div>
+            </div>
+
+            <div class="popover bottom">
+                <div class="arrow"></div>
+                <h3 class="popover-title">Popover bottom</h3>
+
+                <div class="popover-content">
+                <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                </div>
+            </div>
+
+            <div class="popover left">
+                <div class="arrow"></div>
+                <h3 class="popover-title">Popover left</h3>
+                <div class="popover-content">
+                <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+	</body>
+</html>
+<script type="text/javascript" >
+	$("#btnBottomPopover").popoverTrigger({popover: $(".bottom")});
+	$("#btnLeftPopover").popoverTrigger({popover: $(".left"), placement: "left"});
+	$("#btnRightPopover").popoverTrigger({popover: $(".right"), placement: "right"});
+	$("#btnTopPopover").popoverTrigger({popover: $(".top"), placement: "top"});
+</script>

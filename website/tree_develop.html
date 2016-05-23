@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>tree</title>
+	    <link type="text/css" href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+	    <link type="text/css" href="css/webui.css" rel="stylesheet" />
+	    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+	    <script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery-extend.js"></script>
+		<script type="text/javascript" src="js/webui-input.js"></script>
+		<script type="text/javascript" src="js/webui-tree.js"></script>
+	</head>
+	<body>
+		<div class="buttons">
+			<input type="button" value="add selected child"/>
+			<input type="button" value="refresh selected child"/>
+			<input type="button" value="edit selected"/>
+			<input type="button" value="delete selected"/>
+			<input type="button" value="set parent with top node"/>
+		</div>
+		<div id="tree"></div>
+		<h3>Checkbox Tree</h3>
+		<div id="checkboxTree"></div>
+        <span class="ui-icon ui-icon-tag">1111</span>
+		<div class="webui-tree">
+			<ul>
+				<li class="webui-treenode">
+					<i class="font-icon fa-plus"></i> <i class="font-icon fa-check-square-o"></i> <label>企业内容库</label>
+					<ul>
+						<li class="webui-treenode"><i class="font-icon fa-plus"></i> <i class="font-icon fa-square-o"></i> <label>企业内容库</label></li>
+					</ul>
+				</li>
+				<li class="webui-treenode">
+					<i class="font-icon fa-plus"></i> <i class="font-icon fa-check-square-o"></i> <label>企业内容库</label>
+					<ul>
+						<li class="webui-treenode"><i class="font-icon fa-plus"></i>&nbsp;<i class="font-icon fa-square-o"></i> <label>企业内容库</label></li>
+					</ul>
+				</li>
+				<li class="webui-treenode">
+					<i class="font-icon fa-plus"></i> <i class="font-icon fa-check-square-o"></i> <label>企业内容库</label>
+					<ul>
+						<li class="webui-treenode"><i class="font-icon fa-plus"></i> <i class="font-icon fa-square-o"></i> <label>企业内容库</label></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+	$(function(){
+		var tree = $("#tree").tree({
+			value: [
+				{text:"1111", iconClass: "font-icon fa-user"}, 
+				{text:"1111", iconClass: "font-icon fa-user"}
+			],
+			loading: function(event, treenode){
+				treenode.append({text:"1111", iconClass: "font-icon fa-user"});
+			}
+		}).data("tree");
+		
+		var checkboxTree = $("#checkboxTree").tree({
+			value: [
+				{text:"1111", iconClass: "font-icon fa-user"}, 
+				{text:"1111", iconClass: "font-icon fa-user"}
+			],
+            singleSelect: false,
+			loading: function(event, treenode){
+				treenode.append({text:"1111", iconClass: "font-icon fa-user", showCheckbox: true});
+			}
+		}).data("tree");
+
+		$(".buttons input")
+		.eq(0).click(function(){
+			var node = tree.getSelectedNode();
+            var children = node.getChildren();
+			node.append({text:"1111", iconClass: "font-icon fa-user"});
+		}).end()
+		.eq(1).click(function(){
+			var node = tree.getSelectedNode();
+			node.empty();
+			node.append({text:"1111", iconClass: "font-icon fa-user"});
+		}).end()
+		.eq(2).click(function(){
+			var node = tree.getSelectedNode();
+			node.setText("2222");
+		}).end()
+		.eq(3).click(function(){
+			var node = tree.getSelectedNode();
+			node.remove();
+		}).end()
+		.eq(4).click(function(){
+			var node = tree.getSelectedNode();
+			var topNode = tree.getTopNode();
+			topNode.append(node);
+		}).end();
+        tree.selectTopNode();
+	});
+</script>

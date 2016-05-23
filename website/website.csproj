@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D5B62521-8C02-4BF7-884B-8F68AEFDDD46}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>website</RootNamespace>
+    <AssemblyName>website</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\images\icon-user.png" />
+    <Content Include="css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="css\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="css\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="css\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="css\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="css\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="css\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="css\images\ui-icons_222222_256x240.png" />
+    <Content Include="css\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="css\images\ui-icons_454545_256x240.png" />
+    <Content Include="css\images\ui-icons_888888_256x240.png" />
+    <Content Include="css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="css\images\ui-treenode-collapse.gif" />
+    <Content Include="css\images\ui-treenode-expand.gif" />
+    <Content Include="css\images\ui-treenode-leaf.gif" />
+    <Content Include="css\jquery-ui-1.8.23.custom.css" />
+    <Content Include="css\webui-ie8.css" />
+    <Content Include="css\webui.css" />
+    <Content Include="datagrid_develop.html" />
+    <Content Include="data\complexSelect.js" />
+    <Content Include="dist\js\webui.js" />
+    <Content Include="dist\js\webui.min.js" />
+    <Content Include="Gruntfile.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\fecha.js" />
+    <Content Include="js\is.js" />
+    <Content Include="js\jquery-1.8.0.min.js" />
+    <Content Include="js\jquery-extend.js" />
+    <Content Include="js\jquery-ui-1.8.23.custom.min.js" />
+    <Content Include="js\jquery.ui.chengyuan.js" />
+    <Content Include="js\json.js" />
+    <Content Include="js\webui-autocomplete.js" />
+    <Content Include="js\webui-boolCheckbox.js" />
+    <Content Include="js\webui-boolRadio.js" />
+    <Content Include="js\webui-checkboxList.js" />
+    <Content Include="js\webui-complexSelect.js" />
+    <Content Include="js\webui-datagrid.js" />
+    <Content Include="js\webui-dateInput.js" />
+    <Content Include="js\webui-datepicker.js" />
+    <Content Include="js\webui-dateRangeInput.js" />
+    <Content Include="js\webui-dateTimeInput.js" />
+    <Content Include="js\webui-dateTimeRangeInput.js" />
+    <Content Include="js\webui-file.js" />
+    <Content Include="js\webui-form.js" />
+    <Content Include="js\webui-formModal.js" />
+    <Content Include="js\webui-hiddenInput.js" />
+    <Content Include="js\webui-input.js" />
+    <Content Include="js\webui-label.js" />
+    <Content Include="js\webui-messageBox.js" />
+    <Content Include="js\webui-numberInput.js" />
+    <Content Include="js\webui-numberRangeInput.js" />
+    <Content Include="js\webui-pagination.js" />
+    <Content Include="js\webui-popoverTrigger.js" />
+    <Content Include="js\webui-radioList.js" />
+    <Content Include="js\webui-simpleSelect.js" />
+    <Content Include="js\webui-textarea.js" />
+    <Content Include="js\webui-textbox.js" />
+    <Content Include="js\webui-tree.js" />
+    <Content Include="js\webui-selectInput.js" />
+    <Content Include="js\webui-mask.js" />
+    <Content Include="progressBar.html" />
+    <Content Include="remark.txt" />
+    <Content Include="tests\qunit-bridge.js" />
+    <Content Include="tests\datagrid-test.js" />
+    <Content Include="tests\tree-test.js" />
+    <Content Include="tests\qunit.css" />
+    <Content Include="tests\qunit.js" />
+    <Content Include="tests\webui-checkboxList-test.js" />
+    <Content Include="tests\webui-dateInput-test.js" />
+    <Content Include="tests\webui-dateRangeInput-test.js" />
+    <Content Include="tests\webui-form-test.js" />
+    <Content Include="tests\webui-input-test.js" />
+    <Content Include="tests\webui-numberInput-test.js" />
+    <Content Include="tests\webui-numberRangeInput-test.js" />
+    <Content Include="tests\webui-radioList-test.js" />
+    <Content Include="tests\webui-simpleSelect-test.js" />
+    <Content Include="tests\qunit-test.html" />
+    <Content Include="tests\webui-textarea-test.js" />
+    <Content Include="tests\webui-textbox-test.js" />
+    <Content Include="tree_develop.html" />
+    <Content Include="Web.config" />
+    <Content Include="webui-form.html" />
+    <Content Include="webui-messageBox.html" />
+    <Content Include="webui-mutil-selector.html" />
+    <Content Include="webui-pagination.html" />
+    <Content Include="webui-popoverTrigger.html" />
+    <Content Include="测试.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="less\.csscomb.json" />
+    <Content Include="less\.csslintrc" />
+    <Content Include="less\alerts.less" />
+    <Content Include="less\awesome\bordered-pulled.less" />
+    <Content Include="less\awesome\core.less" />
+    <Content Include="less\awesome\fixed-width.less" />
+    <Content Include="less\awesome\font-awesome.less" />
+    <Content Include="less\awesome\icons.less" />
+    <Content Include="less\awesome\larger.less" />
+    <Content Include="less\awesome\list.less" />
+    <Content Include="less\awesome\mixins.less" />
+    <Content Include="less\awesome\path.less" />
+    <Content Include="less\awesome\rotated-flipped.less" />
+    <Content Include="less\awesome\spinning.less" />
+    <Content Include="less\awesome\stacked.less" />
+    <Content Include="less\awesome\variables.less" />
+    <Content Include="less\badges.less" />
+    <Content Include="less\bootstrap.less" />
+    <Content Include="less\breadcrumbs.less" />
+    <Content Include="less\button-groups.less" />
+    <Content Include="less\buttons.less" />
+    <Content Include="less\carousel.less" />
+    <Content Include="less\close.less" />
+    <Content Include="less\code.less" />
+    <Content Include="less\component-animations.less" />
+    <Content Include="less\datagrid.less" />
+    <Content Include="less\dropdowns.less" />
+    <Content Include="less\forms.less" />
+    <Content Include="less\glyphicons.less" />
+    <Content Include="less\grid.less" />
+    <Content Include="less\input-groups.less" />
+    <Content Include="less\jumbotron.less" />
+    <Content Include="less\labels.less" />
+    <Content Include="less\list-group.less" />
+    <Content Include="less\media.less" />
+    <Content Include="less\mixins.less" />
+    <Content Include="less\mixins\alerts.less" />
+    <Content Include="less\mixins\background-variant.less" />
+    <Content Include="less\mixins\border-radius.less" />
+    <Content Include="less\mixins\buttons.less" />
+    <Content Include="less\mixins\center-block.less" />
+    <Content Include="less\mixins\clearfix.less" />
+    <Content Include="less\mixins\forms.less" />
+    <Content Include="less\mixins\gradients.less" />
+    <Content Include="less\mixins\grid-framework.less" />
+    <Content Include="less\mixins\grid.less" />
+    <Content Include="less\mixins\hide-text.less" />
+    <Content Include="less\mixins\image.less" />
+    <Content Include="less\mixins\labels.less" />
+    <Content Include="less\mixins\list-group.less" />
+    <Content Include="less\mixins\nav-divider.less" />
+    <Content Include="less\mixins\nav-vertical-align.less" />
+    <Content Include="less\mixins\opacity.less" />
+    <Content Include="less\mixins\pagination.less" />
+    <Content Include="less\mixins\panels.less" />
+    <Content Include="less\mixins\progress-bar.less" />
+    <Content Include="less\mixins\reset-filter.less" />
+    <Content Include="less\mixins\resize.less" />
+    <Content Include="less\mixins\responsive-visibility.less" />
+    <Content Include="less\mixins\size.less" />
+    <Content Include="less\mixins\tab-focus.less" />
+    <Content Include="less\mixins\table-row.less" />
+    <Content Include="less\mixins\text-emphasis.less" />
+    <Content Include="less\mixins\text-overflow.less" />
+    <Content Include="less\mixins\vendor-prefixes.less" />
+    <Content Include="less\modals.less" />
+    <Content Include="less\nav-list.less" />
+    <Content Include="less\navbar.less" />
+    <Content Include="less\navs.less" />
+    <Content Include="less\normalize.less" />
+    <Content Include="less\pager.less" />
+    <Content Include="less\pagination.less" />
+    <Content Include="less\panels.less" />
+    <Content Include="less\popovers.less" />
+    <Content Include="less\print.less" />
+    <Content Include="less\progress-bars.less" />
+    <Content Include="less\responsive-embed.less" />
+    <Content Include="less\responsive-utilities.less" />
+    <Content Include="less\scaffolding.less" />
+    <Content Include="less\tables.less" />
+    <Content Include="less\theme.less" />
+    <Content Include="less\thumbnails.less" />
+    <Content Include="less\tooltip.less" />
+    <Content Include="less\tree.less" />
+    <Content Include="less\type.less" />
+    <Content Include="less\utilities.less" />
+    <Content Include="less\variables.less" />
+    <Content Include="less\webui-pagination.less" />
+    <Content Include="less\wells.less" />
+    <Content Include="lessc.cmd" />
+    <Content Include="package.json" />
+    <Content Include=".jshintrc" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:61563/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

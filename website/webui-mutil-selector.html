@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>web ui</title>
+        <link type="text/css" href="css/webui.css" rel="stylesheet" />
+        <link type="text/css" href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+        <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+        <script type="text/javascript" src="js/jquery-extend.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/webui-input.js"></script>
+        <script type="text/javascript" src="js/webui-textbox.js"></script>
+        <script type="text/javascript" src="js/webui-dateInput.js"></script>
+        <script type="text/javascript" src="js/webui-checkboxList.js"></script>
+        <script type="text/javascript" src="js/webui-dateRangeInput.js"></script>
+        <script type="text/javascript" src="js/webui-numberInput.js"></script>
+        <script type="text/javascript" src="js/webui-numberRangeInput.js"></script>
+        <script type="text/javascript" src="js/webui-radioList.js"></script>
+        <script type="text/javascript" src="js/webui-simpleSelect.js"></script>
+        <script type="text/javascript" src="js/webui-textarea.js"></script>
+        <script type="text/javascript" src="js/webui-complexSelect.js"></script>
+        <script type="text/javascript" src="js/webui-form.js"></script>
+        <script type="text/javascript" src="js/webui-datagrid.js"></script>
+        <script type="text/javascript" src="js/webui-hiddenInput.js"></script>
+        <script type="text/javascript" src="js/webui-boolRadio.js"></script>
+        <script type="text/javascript" src="js/webui-boolCheckbox.js"></script>
+        <script type="text/javascript" src="js/webui-tree.js"></script>
+        <script type="text/javascript" src="js/webui-messageBox.js"></script>
+        <script type="text/javascript" src="js/webui-label.js"></script>
+        <script type="text/javascript" src="js/jquery-extend.js"></script>
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body >
+        <div>
+            <div style="text-align:center"><h3>web form</h3></div> 
+            
+            <fieldset>
+                <legend>details</legend>
+            </fieldset>
+            <form id="webform" class="form-horizontal" role="form">
+                <div class="form-group">
+                            <label  class="control-label">Multiple Select</label>
+                            <div class="control-input">
+                                <div id="complexSelect" name="complexSelect" class="form-control webui-complexSelect" data-required="true">
+                            
+                                </div>
+                            </div>
+                        </div>
+
+                <div class="form-group" style="margin-top: 500px;">
+                            <label  class="control-label">Multiple Select</label>
+                            <div class="control-input">
+                                <div id="complexSelect1" name="complexSelect" class="form-control webui-complexSelect" data-required="true">
+                            
+                                </div>
+                            </div>
+                        </div>
+                <div class="row" style="text-align: center">
+                    <button id="btnSubmit" type="submit" class="btn btn-default">Submit</button>
+                    <button id="btnReset" type="button" class="btn btn-default">Reset</button>
+                    <button id="btnReadonly" type="button" class="btn btn-default">Readonly</button>
+                </div>
+            </form>
+        </div>
+        
+    </body>
+</html>
+<script type="text/javascript" >
+    $('#complexSelect, #complexSelect1').data("source", [
+        {icon: "glyphicon glyphicon-user", text: "c", summary: "sdfsdfsdfsdf"}, 
+        {icon: "glyphicon glyphicon-user", text: "C", summary: "sdfsdfsdfsdf斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬 sdfsdfsdfsdf斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬"}, 
+        {text: "c++"}, 
+        {text: "c#"}
+    ]);
+    $("#webform").horizontalForm();
+    var form = $("#webform").form().data("form");
+</script>
