@@ -18,56 +18,39 @@
                     this._regex = new RegExp(regex);
                 }
             },
-            _createSuggestion: function(){
-                function split(val) {
-                    return val.split(multipleSymbolRegex);
+            _getSuggestionValue: function(item){
+                var multipleSymbolEndRegex = /[,，、\\；;]$/,
+                    multipleSymbolRegex = /[,，、\\；;]\s*/;
+                var val = this.element.val();
+                if (multipleSymbolEndRegex.test(val)) {
+                    val = val + item.text;
                 }
-                function extractLast(term) {
-                    return split(term).pop();
+                else if (multipleSymbolRegex.test(val)) {
+                    var splitVal = val.split(multipleSymbolRegex);
+                    splitVal[splitVal.length - 1] = item.text;
+                    val = splitVal.join(',');
                 }
-                
-                var multipleSymbolRegex = /[,，、\\；;]\s*/,
-                    multipleSymbolEndRegex = /[,，、\\；;]$/,
-                    suggestions = this._suggestions;
-                if($.isString(suggestions)){
-                    try{
-                        suggestions = eval(suggestions);
-                    }
-                    catch(e){
-                        
-                    }
+                else {
+                    val = item.text;
                 }
-                this.element.autocomplete({
-                    source: function (request, response) {
-                        if($.isString(suggestions)){
-                            $.getJSON( suggestions, {term: extractLast( request.term )}, response );
-                        }
-                        else{
-                            response($.ui.autocomplete.filter(suggestions, extractLast(request.term)));
-                        }
-                    },
-                    focus: function () {
-                        return false;
-                    },
-                    minLength: 0,
-                    select: function (event, ui) {
-                        var val = $(this).val();
-                        if (multipleSymbolEndRegex.test(val)) {
-                            $(this).val( val + ui.item.value);
-                        }
-                        else {
-                            $(this).val(ui.item.value);
-                        }
+
+                return val;
+            },
+            _createSuggestion: function () {
+                var thiz = this;
+                this._autocomplete = this.element.autocomplete({
+                    source: this._suggestions,
+                    "select": function (e, item) {
+                        var val = thiz._getSuggestionValue(item);
+                        $(this).val(val);
+                        thiz.changed();
                         return false;
                     }
-                })
-                .click(function () {
-                    $(this).autocomplete("search", "");
-                });
+                }).data("autocomplete");
             },           
             setSuggestions: function(suggestions){
                 this._suggestions = suggestions;
-                this._createSuggestion();
+                this._autocomplete.setSource(this._suggestions);
             }
         }
     );  

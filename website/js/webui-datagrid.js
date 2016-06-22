@@ -337,7 +337,7 @@ $.widget( "webui.datagrid", $.webui.input, {
         this._footer = footer;
         this._renderFooter();
     },
-    _renderRow: function(data){
+    _renderRow: function (data, index) {
         var self = this, datarow;
         datarow = $("<tr></tr>");
         if(index >= 0 && this._rows.length > index){

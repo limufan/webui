@@ -1205,7 +1205,7 @@ Array.prototype.sum = function(prop){
                     this._numberRegex = new RegExp($.format("^[-,+]?[0-9]+(.[0-9]{0,{0}})?$", this._precision));
                 }
                 else{
-                    this._numberRegex = new RegExp("^[-,+]?[0-9]*[1-9][0-9]*$");
+                    this._numberRegex = new RegExp("(^[-,+]?[1-9][0-9]*$)|0");
                 }
             },
             validate: function(){
@@ -1777,24 +1777,39 @@ $.widget( "webui.datagrid", $.webui.input, {
     },
     _renderRow: function(data){
         var self = this, datarow;
-        datarow = $("<tr></tr>").appendTo(this._bodyContent);
+        datarow = $("<tr></tr>");
+        if(index >= 0 && this._rows.length > index){
+            var insertDataRow = this._rows[index];
+            insertDataRow.before(datarow);
+            this._rows.splice(index, 0, datarow);
+        }
+        else{
+            datarow.appendTo(this._bodyContent);
+            this._rows.push(datarow);
+        }
+        
         datarow.datarow({
-            columns: this.options.columns,
-            showNumberCell: this.options.showNumberColumn,
-            showCheckboxCell: !this.options.singleSelect,
-            data: data
-        })
-        .bind("datarowselected", function(evt, row){self._onDatarow_selected(row);})
-        .bind("datarowunselected", function(evt, row){self._onDatarow_unselected(row);})
-        .bind("datarowchanged", function(){self._changed();})
-        .click(function(){self._onDatarow_click($(this));})
-        .dblclick(function(){self._onDatarow_dblclick($(this));});
-        this._rows.push(datarow);
+                columns: this.options.columns,
+                showNumberCell: this.options.showNumberColumn,
+                showCheckboxCell: !this.options.singleSelect,
+                data: data
+            })
+            .bind("datarowselected", function(evt, row){self._onDatarow_selected(row);})
+            .bind("datarowunselected", function(evt, row){self._onDatarow_unselected(row);})
+            .bind("datarowchanged", function(){self._changed();})
+            .click(function(){self._onDatarow_click($(this));})
+            .dblclick(function(){self._onDatarow_dblclick($(this));});
         this._refreshNumberRow();
         return datarow;
     },
     appendRow: function(data){
         var datarow = this._renderRow(data);
+        this._trigger("addedRow", null, {row: datarow, data: data});
+        this._changed();
+        return datarow;
+    },
+    prependRow: function(data){
+        var datarow = this._renderRow(data, 0);
         this._trigger("addedRow", null, {row: datarow, data: data});
         this._changed();
         return datarow;
@@ -2166,12 +2181,15 @@ $.widget( "webui.datagrid", $.webui.input, {
                 var thiz = this;
                 this._emptyMessage = this.options.emptyMessage || this.element.data("emptyMessage") || "";
                 this._isObjectSelect = this.options.isObjectSelect || this.element.data("isObjectSelect") || false;
-                this._value = this._defaultValue;
+                thiz._refreshValue();
                 this.element.change(function () {
-                    var value = thiz.element.val();
-                    thiz._value = thiz._getValue(value);
+                    thiz._refreshValue();
                 });
                 this._load();
+            },
+            _refreshValue: function(){
+                var value = this.element.val();
+                this._value = this._getValue(value);
             },
             _setValue: function (value) {
                 if (this._isObjectSelect) {
@@ -2185,7 +2203,7 @@ $.widget( "webui.datagrid", $.webui.input, {
             _setElementValue: function (value) {
                 var text = this._getText(value);
                 this.element.val(value);
-                this._value = value;
+                this._refreshValue();
                 this._textElement.html(text);
             },
             getValue: function () {

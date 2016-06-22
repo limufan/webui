@@ -1,433 +1,156 @@
-﻿(function( $, undefined ) {
+﻿(function($){
+    $.widget("webui.autocomplete", {
+            options: {
+                input: null,
+                source: null
+            },
+            _create: function(){
+                var thiz = this;
+                this._source = this.options.source || this.element.data("source") || [];
+                this._textField = this.options.textField || this.element.data("textField") || "text";
+                if (this.options.input != null) {
+                    this._input = this.options.input;
+                }
+                else {
+                    this._input = this.element;
+                }
 
-// used to prevent race conditions with remote data sources
-var requestIndex = 0;
+                this._dropdownMenu = $("<ul style='max-height: 300px;overflow: auto; left: 0; top: 0; z-index: 10000;' class='dropdown-menu' >")
+                    .appendTo("body");
+                this._bindEvent();
+            },
+            _bindEvent: function () {
+                var thiz = this;
 
-$.widget( "ui.autocomplete", {
-	options: {
-		appendTo: "body",
-		autoFocus: false,
-		delay: 300,
-		minLength: 1,
-		position: {
-			my: "left top",
-			at: "left bottom",
-			collision: "none"
-		},
-		source: null
-	},
+                var dropdownTimeout;
+                this._input.keyup(function (e) {
+                    if (e.keyCode === $.ui.keyCode.ENTER) {
+                        return;
+                    }
 
-	pending: 0,
+                    if (dropdownTimeout) {
+                        clearTimeout(dropdownTimeout);
+                        dropdownTimeout = null;
+                    }
 
-	_create: function() {
-		var self = this,
-			doc = this.element[ 0 ].ownerDocument,
-			suppressKeyPress;
-		this.isMultiLine = this.element.is( "textarea" );
+                    dropdownTimeout = setTimeout(function () {
+                        thiz._renderDropdownMenu(function () {
+                            thiz._showDropdownMenu();
+                        });
+                    }, 300);
+                });
 
-		this.element
-			.addClass( "ui-autocomplete-input" )
-			.attr( "autocomplete", "off" )
-			// TODO verify these actually work as intended
-			.attr({
-				role: "textbox",
-				"aria-autocomplete": "list",
-				"aria-haspopup": "true"
-			})
-			.bind( "keydown.autocomplete", function( event ) {
-				if ( self.options.disabled || self.element.propAttr( "readOnly" ) ) {
-					return;
-				}
+                this._input.click(function (e) {
+                    thiz._renderDropdownMenu(function () {
+                        thiz._showDropdownMenu();
+                    });
+                    thiz._showing = true;
+                });
 
-				suppressKeyPress = false;
-				var keyCode = $.ui.keyCode;
-				switch( event.keyCode ) {
-				case keyCode.PAGE_UP:
-					self._move( "previousPage", event );
-					break;
-				case keyCode.PAGE_DOWN:
-					self._move( "nextPage", event );
-					break;
-				case keyCode.UP:
-					self._keyEvent( "previous", event );
-					break;
-				case keyCode.DOWN:
-					self._keyEvent( "next", event );
-					break;
-				case keyCode.ENTER:
-				case keyCode.NUMPAD_ENTER:
-					// when menu is open and has focus
-					if ( self.menu.active ) {
-						// #6055 - Opera still allows the keypress to occur
-						// which causes forms to submit
-						suppressKeyPress = true;
-						event.preventDefault();
-					}
-					//passthrough - ENTER and TAB both select the current element
-				case keyCode.TAB:
-					if ( !self.menu.active ) {
-						return;
-					}
-					self.menu.select( event );
-					break;
-				case keyCode.ESCAPE:
-					self.element.val( self.term );
-					self.close( event );
-					break;
-				default:
-					// keypress is triggered before the input value is changed
-					clearTimeout( self.searching );
-					self.searching = setTimeout(function() {
-						// only search if the value has changed
-						if ( self.term != self.element.val() ) {
-							self.selectedItem = null;
-							self.search( null, event );
-						}
-					}, self.options.delay );
-					break;
-				}
-			})
-			.bind( "keypress.autocomplete", function( event ) {
-				if ( suppressKeyPress ) {
-					suppressKeyPress = false;
-					event.preventDefault();
-				}
-			})
-			.bind( "focus.autocomplete", function() {
-				if ( self.options.disabled ) {
-					return;
-				}
+                $("html").click(function(){
+                    if(thiz._showing !== true){
+                        thiz._hideDropdownMenu();
+                    }
+                    thiz._showing = false;
+                });
 
-				self.selectedItem = null;
-				self.previous = self.element.val();
-			})
-			.bind( "blur.autocomplete", function( event ) {
-				if ( self.options.disabled ) {
-					return;
-				}
+                this._dropdownMenu.click(function(e){
+                    e.stopPropagation();
+                });
+            },
+            _showDropdownMenu: function(){
+                var elementOuterWidth = this.element.outerWidth();
+                this._dropdownMenu.outerWidth(elementOuterWidth);
+                var elementOuterHeight = this.element.outerHeight();
+                var elementOffset = this.element.offset();
+                var elementTop = elementOffset.top;
+                var elementBottom = elementOffset.top + elementOuterHeight;
+                var menuOuterHeigth = this._dropdownMenu.outerHeight();
+                var windowHeight = $(window).height();
+                if((windowHeight - elementBottom - menuOuterHeigth) < 0){
+                    this._dropdownMenu.css({top: elementTop - menuOuterHeigth, left: elementOffset.left, display: "block"});
+                }
+                else{
+                    this._dropdownMenu.css({top: elementBottom, left: elementOffset.left, display: "block"});
+                }
+            },
+            _hideDropdownMenu: function(){
+                this._dropdownMenu.hide();
+            },
+            _renderDropdownMenu: function(renderedCallback){
+                var thiz = this;
+                this._getSource($.trim(thiz._input.val()), function(source){
+                    thiz._dropdownMenu.empty();
+                    $.each(source, function(i, item){
+                        var menuContent = "<span style='font-weight:bold'>" +thiz._getItemText(item) + "</span>";
+                        if(this.icon){
+                            menuContent = "<span class='"+this.icon+"'></span>" + menuContent;
+                        }
+                        if(this.summary){
+                            menuContent += "<div>" + this.summary + "</div>";
+                        }
+                        var menu = $("<li><a style='white-space: normal' tabindex='-1' href='#'>" + menuContent + "</a></li>")
+                            .data("item", this)
+                            .click(function () {
+                                var selectArgs = {item: item};
+                                selectArgs.text = thiz._getItemText(item);
+                                thiz._trigger("select", null, selectArgs);
+                                thiz._hideDropdownMenu();
+                                return false;
+                            });
+                        thiz._dropdownMenu.append(menu);
+                    });
+                    if(renderedCallback){
+                        renderedCallback();
+                    }
+                });
+            },
+            _extractKeyword: function (keyword) {
+                var multipleSymbolRegex = /[,，、\\；;]\s*/;
+                return keyword
+                    .split(multipleSymbolRegex)
+                    .pop();
+            },
+            _getSource: function(keyword, callback){
+                var thiz = this;
 
-				clearTimeout( self.searching );
-				// clicks on the menu (or a button to trigger a search) will cause a blur event
-				self.closing = setTimeout(function() {
-					self.close( event );
-					self._change( event );
-				}, 150 );
-			});
-		this._initSource();
-		this.menu = $( "<ul></ul>" )
-			.addClass( "ui-autocomplete" )
-			.appendTo( $( this.options.appendTo || "body", doc )[0] )
-			// prevent the close-on-blur in case of a "slow" click on the menu (long mousedown)
-			.mousedown(function( event ) {
-				// clicking on the scrollbar causes focus to shift to the body
-				// but we can't detect a mouseup or a click immediately afterward
-				// so we have to track the next mousedown and close the menu if
-				// the user clicks somewhere outside of the autocomplete
-				var menuElement = self.menu.element[ 0 ];
-				if ( !$( event.target ).closest( ".ui-menu-item" ).length ) {
-					setTimeout(function() {
-						$( document ).one( 'mousedown', function( event ) {
-							if ( event.target !== self.element[ 0 ] &&
-								event.target !== menuElement &&
-								!$.ui.contains( menuElement, event.target ) ) {
-								self.close();
-							}
-						});
-					}, 1 );
-				}
+                if(!keyword){
+                    keyword = "";
+                }
+                keyword = this._extractKeyword(keyword);
+                keyword = keyword.toLowerCase();
 
-				// use another timeout to make sure the blur-event-handler on the input was already triggered
-				setTimeout(function() {
-					clearTimeout( self.closing );
-				}, 13);
-			})
-			.menu({
-				focus: function( event, ui ) {
-					var item = ui.item.data( "item.autocomplete" );
-					if ( false !== self._trigger( "focus", event, { item: item } ) ) {
-						// use value to match what will end up in the input, if it was a key event
-						if ( /^key/.test(event.originalEvent.type) ) {
-							self.element.val( item.value );
-						}
-					}
-				},
-				selected: function( event, ui ) {
-					var item = ui.item.data( "item.autocomplete" ),
-						previous = self.previous;
+                if($.isString(this._source)){
+                    try{
+                        this._source = eval(this._source);
+                    }
+                    catch(e){
+                    
+                    }
+                }
 
-					// only trigger when focus was lost (click on menu)
-					if ( self.element[0] !== doc.activeElement ) {
-						self.element.focus();
-						self.previous = previous;
-						// #6109 - IE triggers two focus events and the second
-						// is asynchronous, so we need to reset the previous
-						// term synchronously and asynchronously :-(
-						setTimeout(function() {
-							self.previous = previous;
-							self.selectedItem = item;
-						}, 1);
-					}
-
-					if ( false !== self._trigger( "select", event, { item: item } ) ) {
-						self.element.val( item.value );
-					}
-					// reset the term after the select event
-					// this allows custom select handling to work properly
-					self.term = self.element.val();
-
-					self.close( event );
-					self.selectedItem = item;
-				},
-				blur: function( event, ui ) {
-					// don't set the value of the text field if it's already correct
-					// this prevents moving the cursor unnecessarily
-					if ( self.menu.element.is(":visible") &&
-						( self.element.val() !== self.term ) ) {
-						self.element.val( self.term );
-					}
-				}
-			})
-			.zIndex( this.element.zIndex() + 10 )
-			// workaround for jQuery bug #5781 http://dev.jquery.com/ticket/5781
-			.css({ top: 0, left: 0 })
-			.hide()
-			.data( "menu" );
-		if ( $.fn.bgiframe ) {
-			 this.menu.element.bgiframe();
-		}
-		// turning off autocomplete prevents the browser from remembering the
-		// value when navigating through history, so we re-enable autocomplete
-		// if the page is unloaded before the widget is destroyed. #7790
-		self.beforeunloadHandler = function() {
-			self.element.removeAttr( "autocomplete" );
-		};
-		$( window ).bind( "beforeunload", self.beforeunloadHandler );
-	},
-
-	destroy: function() {
-		this.element
-			.removeClass( "ui-autocomplete-input" )
-			.removeAttr( "autocomplete" )
-			.removeAttr( "role" )
-			.removeAttr( "aria-autocomplete" )
-			.removeAttr( "aria-haspopup" );
-		this.menu.element.remove();
-		$( window ).unbind( "beforeunload", this.beforeunloadHandler );
-		$.Widget.prototype.destroy.call( this );
-	},
-
-	_setOption: function( key, value ) {
-		$.Widget.prototype._setOption.apply( this, arguments );
-		if ( key === "source" ) {
-			this._initSource();
-		}
-		if ( key === "appendTo" ) {
-			this.menu.element.appendTo( $( value || "body", this.element[0].ownerDocument )[0] )
-		}
-		if ( key === "disabled" && value && this.xhr ) {
-			this.xhr.abort();
-		}
-	},
-
-	_initSource: function() {
-		var self = this,
-			array,
-			url;
-		if ( $.isArray(this.options.source) ) {
-			array = this.options.source;
-			this.source = function( request, response ) {
-				response( $.ui.autocomplete.filter(array, request.term) );
-			};
-		} else if ( typeof this.options.source === "string" ) {
-			url = this.options.source;
-			this.source = function( request, response ) {
-				if ( self.xhr ) {
-					self.xhr.abort();
-				}
-				self.xhr = $.ajax({
-					url: url,
-					data: request,
-					dataType: "json",
-					success: function( data, status ) {
-						response( data );
-					},
-					error: function() {
-						response( [] );
-					}
-				});
-			};
-		} else {
-			this.source = this.options.source;
-		}
-	},
-
-	search: function( value, event ) {
-		value = value != null ? value : this.element.val();
-
-		// always save the actual value, not the one passed as an argument
-		this.term = this.element.val();
-
-		if ( value.length < this.options.minLength ) {
-			return this.close( event );
-		}
-
-		clearTimeout( this.closing );
-		if ( this._trigger( "search", event ) === false ) {
-			return;
-		}
-
-		return this._search( value );
-	},
-
-	_search: function( value ) {
-		this.pending++;
-		this.element.addClass( "ui-autocomplete-loading" );
-
-		this.source( { term: value }, this._response() );
-	},
-
-	_response: function() {
-		var that = this,
-			index = ++requestIndex;
-
-		return function( content ) {
-			if ( index === requestIndex ) {
-				that.__response( content );
-			}
-
-			that.pending--;
-			if ( !that.pending ) {
-				that.element.removeClass( "ui-autocomplete-loading" );
-			}
-		};
-	},
-
-	__response: function( content ) {
-		if ( !this.options.disabled && content && content.length ) {
-			content = this._normalize( content );
-			this._suggest( content );
-			this._trigger( "open" );
-		} else {
-			this.close();
-		}
-	},
-
-	close: function( event ) {
-		clearTimeout( this.closing );
-		if ( this.menu.element.is(":visible") ) {
-			this.menu.element.hide();
-			this.menu.deactivate();
-			this._trigger( "close", event );
-		}
-	},
-	
-	_change: function( event ) {
-		if ( this.previous !== this.element.val() ) {
-			this._trigger( "change", event, { item: this.selectedItem } );
-		}
-	},
-
-	_normalize: function( items ) {
-		// assume all items have the right format when the first item is complete
-		if ( items.length && items[0].label && items[0].value ) {
-			return items;
-		}
-		return $.map( items, function(item) {
-			if ( typeof item === "string" ) {
-				return {
-					label: item,
-					value: item
-				};
-			}
-			return $.extend({
-				label: item.label || item.value,
-				value: item.value || item.label
-			}, item );
-		});
-	},
-
-	_suggest: function( items ) {
-		var ul = this.menu.element
-			.empty()
-			.zIndex( this.element.zIndex() + 10 );
-		this._renderMenu( ul, items );
-		// TODO refresh should check if the active item is still in the dom, removing the need for a manual deactivate
-		this.menu.deactivate();
-		this.menu.refresh();
-
-		// size and position menu
-		ul.show();
-		this._resizeMenu();
-		ul.position( $.extend({
-			of: this.element
-		}, this.options.position ));
-
-		if ( this.options.autoFocus ) {
-			this.menu.next( new $.Event("mouseover") );
-		}
-	},
-
-	_resizeMenu: function() {
-		var ul = this.menu.element;
-		ul.outerWidth( Math.max(
-			// Firefox wraps long text (possibly a rounding bug)
-			// so we add 1px to avoid the wrapping (#7513)
-			ul.width( "" ).outerWidth() + 1,
-			this.element.outerWidth()
-		) );
-	},
-
-	_renderMenu: function( ul, items ) {
-		var self = this;
-		$.each( items, function( index, item ) {
-			self._renderItem( ul, item );
-		});
-	},
-
-	_renderItem: function( ul, item) {
-		return $( "<li></li>" )
-			.data( "item.autocomplete", item )
-			.append( $( "<a></a>" ).text( item.label ) )
-			.appendTo( ul );
-	},
-
-	_move: function( direction, event ) {
-		if ( !this.menu.element.is(":visible") ) {
-			this.search( null, event );
-			return;
-		}
-		if ( this.menu.first() && /^previous/.test(direction) ||
-				this.menu.last() && /^next/.test(direction) ) {
-			this.element.val( this.term );
-			this.menu.deactivate();
-			return;
-		}
-		this.menu[ direction ]( event );
-	},
-
-	widget: function() {
-		return this.menu.element;
-	},
-	_keyEvent: function( keyEvent, event ) {
-		if ( !this.isMultiLine || this.menu.element.is( ":visible" ) ) {
-			this._move( keyEvent, event );
-
-			// prevents moving cursor to beginning/end of the text field in some browsers
-			event.preventDefault();
-		}
-	}
-});
-
-$.extend( $.ui.autocomplete, {
-	escapeRegex: function( value ) {
-		return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-	},
-	filter: function(array, term) {
-		var matcher = new RegExp( $.ui.autocomplete.escapeRegex(term), "i" );
-		return $.grep( array, function(value) {
-			return matcher.test( value.label || value.value || value );
-		});
-	}
-});
-
-}( jQuery ));
+                if($.isArray(this._source)){
+                    var source = $.grep(this._source, function(item){
+                        var text = thiz._getItemText(item);
+                        return text.toLowerCase().indexOf(keyword) > -1;
+                    });
+                    callback(source);
+                }
+                else if($.isString(this._source)){
+                    $.getJSON(this._source, {keyword: keyword, t: $.now()}, function(data){
+                        callback(data);
+                    });
+                }
+            },
+            setSource: function(source){
+                this._source = source;
+            },
+            _getItemText: function (item) {
+                if (typeof (item) === "object") {
+                    return item[this._textField];
+                }
+                return item;
+            }
+        }
+    );
+})(jQuery);

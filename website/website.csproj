@@ -89,12 +89,12 @@
     <Content Include="js\jquery-1.8.0.min.js" />
     <Content Include="js\jquery-extend.js" />
     <Content Include="js\jquery-ui-1.8.23.custom.min.js" />
-    <Content Include="js\jquery.ui.chengyuan.js" />
     <Content Include="js\json.js" />
     <Content Include="js\webui-autocomplete.js" />
     <Content Include="js\webui-boolCheckbox.js" />
     <Content Include="js\webui-boolRadio.js" />
     <Content Include="js\webui-checkboxList.js" />
+    <Content Include="js\webui-autocomplete1.js" />
     <Content Include="js\webui-complexSelect.js" />
     <Content Include="js\webui-datagrid.js" />
     <Content Include="js\webui-dateInput.js" />
@@ -140,13 +140,12 @@
     <Content Include="tests\webui-textarea-test.js" />
     <Content Include="tests\webui-textbox-test.js" />
     <Content Include="tree_develop.html" />
-    <Content Include="Web.config" />
     <Content Include="webui-form.html" />
     <Content Include="webui-messageBox.html" />
+    <Content Include="webui-autocomplete.html" />
     <Content Include="webui-mutil-selector.html" />
     <Content Include="webui-pagination.html" />
     <Content Include="webui-popoverTrigger.html" />
-    <Content Include="测试.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -250,15 +249,8 @@
     <Content Include="less\variables.less" />
     <Content Include="less\webui-pagination.less" />
     <Content Include="less\wells.less" />
-    <Content Include="lessc.cmd" />
     <Content Include="package.json" />
     <Content Include=".jshintrc" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
