@@ -4,8 +4,8 @@
 */
 
 module.exports = function (grunt) {
-	"use strict";
-	var developJs = [
+    "use strict";
+    var developJs = [
 				"js/jquery-extend.js",
 				"js/webui-mask.js",
 				"js/webui-input.js",
@@ -31,94 +31,99 @@ module.exports = function (grunt) {
 				"js/webui-pagination.js",
 				"js/webui-label.js",
 				"js/webui-formModal.js",
-                "js/webui-dateTimeInput.js",
-                "js/webui-dateTimeRangeInput.js",
-                "js/webui-file.js"
-			];
-	var webuiJs = developJs.concat(["js/webui-autocomplete.js", "js/webui-datepicker.js", "js/is.js", "js/fecha.js"]);
+  "js/webui-dateTimeInput.js",
+  "js/webui-dateTimeRangeInput.js",
+  "js/webui-file.js",
+  "js/webui-autocomplete.js"
+    ];
+    var webuiJs = developJs.concat(["js/webui-datepicker.js", "js/is.js", "js/fecha.js"]);
     var webuiTestJs = [
-            "tests/qunit-bridge.js",
-            "tests/webui-input-test.js",
-            "tests/webui-dateInput-test.js",
-            "tests/webui-textbox-test.js",
-            "tests/webui-checkboxList-test.js",
-            "tests/webui-dateRangeInput-test.js",
-            "tests/webui-numberInput-test.js",
-            "tests/webui-numberRangeInput-test.js",
-            "tests/webui-radioList-test.js",
-            "tests/webui-simpleSelect-test.js",
-            "tests/webui-textarea-test.js",
-            "tests/webui-form-test.js"
-        ];
-    
+     "tests/qunit-bridge.js",
+     "tests/webui-input-test.js",
+     "tests/webui-dateInput-test.js",
+     "tests/webui-textbox-test.js",
+     "tests/webui-checkboxList-test.js",
+     "tests/webui-dateRangeInput-test.js",
+     "tests/webui-numberInput-test.js",
+     "tests/webui-numberRangeInput-test.js",
+     "tests/webui-radioList-test.js",
+     "tests/webui-simpleSelect-test.js",
+     "tests/webui-textarea-test.js",
+     "tests/webui-form-test.js"
+    ];
+
     // Project configuration.
-	grunt.initConfig({
+    grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
         banner: '/*!\n' +
             ' * Bootstrap v<%= pkg.version %> (<%= pkg.homepage %>)\n' +
             ' * Copyright 2011-<%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
             ' */\n',
-		clean: {
-			dist: "dist"
-		},
-		jshint: {
-			options: {
-				jshintrc: ".jshintrc"
-			},
-			gruntfile: {
-				src: "Gruntfile.js"
-			},
-			webui:{
-				src: developJs
-			}
-		},
-		concat: {
-			webui: {
+        clean: {
+            dist: "dist"
+        },
+        jshint: {
+            options: {
+                jshintrc: ".jshintrc"
+            },
+            gruntfile: {
+                src: "Gruntfile.js"
+            },
+            webui: {
+                src: developJs
+            }
+        },
+        concat: {
+            js: {
                 src: webuiJs,
-				dest: "dist/webui.js"
-			}
-		},
-		uglify: {
-			webui: {
-				options: {
-				},
-				src: "dist/webui.js",
-				dest: "dist/webui.min.js"
-			}
-		},
-		qunit: {
-            webuiTest:{
-                options:{
+                dest: "dist/webui.js"
+            },
+            css: {
+                src: ["css/webui.css", "css/webui-datepicker.css"],
+                dest: "dist/webui.css"
+            }
+        },
+        uglify: {
+            webui: {
+                options: {
+                },
+                src: "dist/webui.js",
+                dest: "dist/webui.min.js"
+            }
+        },
+        qunit: {
+            webuiTest: {
+                options: {
                     inject: webuiJs.concat(webuiTestJs),
                     urls: ["tests/qunit-test.html"]
                 }
-			},
-			webuiMinTest:{
-                options:{
+            },
+            webuiMinTest: {
+                options: {
                     inject: webuiTestJs.concat(["dist/webui.min.js"]),
                     urls: ["tests/qunit-test.html"]
                 }
-			}
-		},
+            }
+        },
         gremlins: {
-            webui:{
+            webui: {
                 options: {
                     path: 'http://localhost:8081/webui-form1.html',
                     test: "tests/gremlins-config.js"
                 }
             }
         }
-	});
-    
-	grunt.loadNpmTasks("grunt-contrib-clean");
-	grunt.loadNpmTasks("grunt-contrib-uglify");
-	grunt.loadNpmTasks("grunt-contrib-jshint");
-	grunt.loadNpmTasks("grunt-contrib-qunit");
-	grunt.loadNpmTasks("grunt-contrib-concat");
+    });
+
+    grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-qunit");
+    grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks('grunt-gremlins');
 
-	// Default task.
-	grunt.registerTask("default", ["clean", "jshint", "concat", "uglify", "qunit"]);
+    // Default task.
+    grunt.registerTask("default", ["clean", "jshint", "concat", "uglify", "qunit"]);
 
 };
 

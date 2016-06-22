@@ -10,12 +10,18 @@
                 var thiz = this;
                 this._defaultTime = this.element.data("defaultTime") || this.options.defaultTime;
                 this.element.datepicker({
-                    onSelect: function(date){
-                        thiz.setValue(date + " " + thiz._defaultTime);
-                        thiz._changed();
-                    }
-                }).
-                inputing(function(){
+                    format: "yyyy-mm-dd",
+                    language: "zh-CN",
+                    autoclose: true,
+                    todayHighlight: true,
+                    forceParse: false
+                })
+                .on("changeDate", function (e) {
+                    var date = $.formatDate(e.date);
+                    thiz.setValue(date + " " + thiz._defaultTime);
+                    thiz._changed();
+                })
+                .inputing(function(){
                     thiz._changed();
                 }, 0)
                 .mask({pattern: "9999-99-99 99:99"});

@@ -8,7 +8,7 @@
                 var thiz = this;
                 this._source = this.options.source || this.element.data("source") || [];
                 this._textField = this.options.textField || this.element.data("textField") || "text";
-                if (this.options.input != null) {
+                if (this.options.input !== null) {
                     this._input = this.options.input;
                 }
                 else {

@@ -7,7 +7,12 @@
             },
             _onCreated: function(){
                 var thiz = this;
-                this.element.datepicker()
+                this.element.datepicker({
+                        format: "yyyy-mm-dd",
+                        language: "zh-CN",
+                        todayHighlight: true,
+                        autoclose: true
+                    })
                     .inputing(function(){
                         thiz._changed();
                     }, 0)
