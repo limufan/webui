@@ -58,9 +58,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\images\icon-user.png" />
-    <Content Include="css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="css\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="css\images\ui-bg_glass_55_fbf9ee_1x400.png" />
     <Content Include="css\images\ui-bg_glass_65_ffffff_1x400.png" />
     <Content Include="css\images\ui-bg_glass_75_dadada_1x400.png" />
@@ -72,33 +69,32 @@
     <Content Include="css\images\ui-icons_454545_256x240.png" />
     <Content Include="css\images\ui-icons_888888_256x240.png" />
     <Content Include="css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="css\jquery-ui.css" />
+    <Content Include="css\webui-datepicker.css" />
+    <Content Include="css\images\icon-user.png" />
     <Content Include="css\images\ui-treenode-collapse.gif" />
     <Content Include="css\images\ui-treenode-expand.gif" />
     <Content Include="css\images\ui-treenode-leaf.gif" />
-    <Content Include="css\jquery-ui-1.8.23.custom.css" />
     <Content Include="css\webui-ie8.css" />
     <Content Include="css\webui.css" />
     <Content Include="datagrid_develop.html" />
     <Content Include="data\complexSelect.js" />
-    <Content Include="dist\js\webui.js" />
-    <Content Include="dist\js\webui.min.js" />
     <Content Include="Gruntfile.js" />
-    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\jquery-ui.js" />
+    <Content Include="js\jquery.js" />
+    <Content Include="js\webui-datepicker.js" />
+    <Content Include="js\bootstrap.js" />
     <Content Include="js\fecha.js" />
     <Content Include="js\is.js" />
-    <Content Include="js\jquery-1.8.0.min.js" />
     <Content Include="js\jquery-extend.js" />
-    <Content Include="js\jquery-ui-1.8.23.custom.min.js" />
     <Content Include="js\json.js" />
-    <Content Include="js\webui-autocomplete.js" />
     <Content Include="js\webui-boolCheckbox.js" />
     <Content Include="js\webui-boolRadio.js" />
     <Content Include="js\webui-checkboxList.js" />
-    <Content Include="js\webui-autocomplete1.js" />
+    <Content Include="js\webui-autocomplete.js" />
     <Content Include="js\webui-complexSelect.js" />
     <Content Include="js\webui-datagrid.js" />
     <Content Include="js\webui-dateInput.js" />
-    <Content Include="js\webui-datepicker.js" />
     <Content Include="js\webui-dateRangeInput.js" />
     <Content Include="js\webui-dateTimeInput.js" />
     <Content Include="js\webui-dateTimeRangeInput.js" />
@@ -252,7 +248,9 @@
     <Content Include="package.json" />
     <Content Include=".jshintrc" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="dist\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

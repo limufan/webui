@@ -147,6 +147,9 @@ $.widget( "webui.datagrid", $.webui.input, {
                 },
                 start: function(){
                     datagridHeight = self._getHeight();
+                    if (!datagridHeight) {
+                        datagridHeight = self.element.height();
+                    }
                 },
                 stop: function(event, ui){
                     ui.originalElement.css("height", "auto");
@@ -214,7 +217,7 @@ $.widget( "webui.datagrid", $.webui.input, {
         }
         else if(this.options.height){
             height = this.options.height;
-        }
+        } 
         return height;
     },
     _renderWidth: function(){

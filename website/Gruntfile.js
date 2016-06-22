@@ -31,12 +31,12 @@ module.exports = function (grunt) {
 				"js/webui-pagination.js",
 				"js/webui-label.js",
 				"js/webui-formModal.js",
-  "js/webui-dateTimeInput.js",
-  "js/webui-dateTimeRangeInput.js",
-  "js/webui-file.js",
-  "js/webui-autocomplete.js"
+                "js/webui-dateTimeInput.js",
+                "js/webui-dateTimeRangeInput.js",
+                "js/webui-file.js",
+                "js/webui-autocomplete.js"
     ];
-    var webuiJs = developJs.concat(["js/webui-datepicker.js", "js/is.js", "js/fecha.js"]);
+    var webuiJs = ["js/jquery.js", "js/jquery-ui.js", "js/bootstrap.js", "js/webui-datepicker.js", "js/is.js", "js/fecha.js"].concat(developJs);
     var webuiTestJs = [
      "tests/qunit-bridge.js",
      "tests/webui-input-test.js",
@@ -79,7 +79,7 @@ module.exports = function (grunt) {
                 dest: "dist/webui.js"
             },
             css: {
-                src: ["css/webui.css", "css/webui-datepicker.css"],
+                src: ["css/webui.css", "css/webui-datepicker.css", "jquery-ui.css"],
                 dest: "dist/webui.css"
             }
         },
@@ -100,7 +100,7 @@ module.exports = function (grunt) {
             },
             webuiMinTest: {
                 options: {
-                    inject: webuiTestJs.concat(["dist/webui.min.js"]),
+                    inject: ["dist/webui.min.js"].concat(webuiTestJs),
                     urls: ["tests/qunit-test.html"]
                 }
             }
