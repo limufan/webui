@@ -115,10 +115,10 @@ output {
 .form-control {
   display: block;
   width: 100%;
-  padding: @padding-base-vertical @padding-base-horizontal;
+  padding: floor((@padding-base-vertical / 2)) floor((@padding-base-horizontal / 2));
   font-size: @font-size-base;
   line-height: @line-height-base;
-  min-height: 30px;
+  min-height: 27px;
   color: @input-color;
   background-color: @input-bg;
   background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
