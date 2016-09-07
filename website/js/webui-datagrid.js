@@ -627,14 +627,12 @@ $.widget( "webui.datagrid", $.webui.input, {
                 }
             }
             else if(column.render){
-                if(fieldValue){
-                    renderValue = column.render(self.element, {data: data, value: fieldValue} );
-                    if(typeof renderValue === "string"){
-                        cell.html(renderValue).attr("title", renderValue);
-                    }
-                    else if(typeof renderValue === "object"){
-                        cell.append(renderValue);
-                    }
+                renderValue = column.render(self.element, { data: data, value: fieldValue });
+                if (typeof renderValue === "string") {
+                    cell.html(renderValue).attr("title", renderValue);
+                }
+                else if (typeof renderValue === "object") {
+                    cell.append(renderValue);
                 }
             }
             else if(column.field){
