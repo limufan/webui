@@ -620,7 +620,7 @@ $.widget( "webui.datagrid", $.webui.input, {
             if(typeof(column.render) === "string"){
                 renderValue = dagaridRenders[column.render](fieldValue, this, cell, column);
                 if(typeof renderValue === "string"){
-                    cell.html(renderValue);
+                    cell.html(renderValue).attr("title", renderValue);
                 }
                 else if(typeof renderValue === "object"){
                     cell.append(renderValue);
@@ -630,7 +630,7 @@ $.widget( "webui.datagrid", $.webui.input, {
                 if(fieldValue){
                     renderValue = column.render(self.element, {data: data, value: fieldValue} );
                     if(typeof renderValue === "string"){
-                        cell.html(renderValue);
+                        cell.html(renderValue).attr("title", renderValue);
                     }
                     else if(typeof renderValue === "object"){
                         cell.append(renderValue);
