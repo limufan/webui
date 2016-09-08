@@ -161,8 +161,9 @@ $.widget( "webui.datagrid", $.webui.input, {
             });
             cell = {element: th, column: column};
             self._headerCells.push(cell);
-            cellElement.click(function(){
-                if(self.options.canSort && column.orderBy){
+            cellElement.click(function () {
+                var orderBy = column.orderBy || column.field;
+                if (self.options.canSort && orderBy) {
                     self._sortBy(cell, self._toggleDirection(column.sortDirection));
                 }
             });
@@ -194,7 +195,8 @@ $.widget( "webui.datagrid", $.webui.input, {
         else if(direction === "asc"){
             cell.element.find(".ui-datagrid-header-cell").prepend("<span class='ui-datagrid-header-sort-icon'>▲</span>");
         }
-        this._trigger("sort", null, {orderBy: cell.column.orderBy, descending: direction === "desc"});
+        var orderBy = cell.column.orderBy || cell.column.field;
+        this._trigger("sort", null, { orderBy: orderBy, descending: direction === "desc" });
     },
     refreshSize: function(){
         this._renderWidth();
