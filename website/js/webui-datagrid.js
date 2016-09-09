@@ -32,7 +32,6 @@ var dagaridRenders = {
         return dagaridRenders.numberEditor(value, datarow, cell, column, 2);
     }
 };
-$.extend(dagaridRenders, $.webui.__renders);
 var cloumnDefaultWidth = 100;
 
 $.widget( "webui.datagrid", $.webui.input, {
@@ -623,6 +622,9 @@ $.widget( "webui.datagrid", $.webui.input, {
                 var cellRender;
                 if (column.render in dagaridRenders) {
                     cellRender = dagaridRenders[column.render];
+                }
+                else if (column.render in $.webui.__renders) {
+                    cellRender = $.webui.__renders[column.render];
                 }
                 else {
                     cellRender = window[column.render];

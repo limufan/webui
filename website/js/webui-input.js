@@ -249,6 +249,18 @@
             }
             return "";
         },
+        code: function (value) {
+            if ($.isArray(value)) {
+                value = $.map(value, function (obj) {
+                    return obj.code;
+                });
+                return value.toString();
+            }
+            else if (value) {
+                return value.code;
+            }
+            return "";
+        },
         nameMultiRow: function(value){
             if($.isArray(value)){
                 value = $.map(value, function(obj){
