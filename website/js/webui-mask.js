@@ -101,7 +101,10 @@
                 }
                 this.element.caret(insertIndex);
             },
-            _format: function(inputChars){
+            _format: function (inputChars) {
+                if (!inputChars || !inputChars.length){
+                    return "";
+                }
                 var patternRegex, patternChar, patternChars,
                     definition, formatChars = [], formatChar, inputChar, i;
                 patternChars = this._patternChars.slice(0);

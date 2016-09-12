@@ -149,13 +149,14 @@ $.widget( "webui.datagrid", $.webui.input, {
                     if (!datagridHeight) {
                         datagridHeight = self.element.height();
                     }
+                    self._cellResizing = true;
                 },
                 stop: function(event, ui){
                     ui.originalElement.css("height", "auto");
                     self._header.find("colgroup").find("col").eq(index).css("width", ui.size.width);
                     self._body.find("colgroup").find("col").eq(index).css("width", ui.size.width);
                     cellElement.css("width", ui.size.width);
-                    
+                    self._cellResizing = false;
                 }
             });
             cell = {element: th, column: column};
@@ -197,7 +198,10 @@ $.widget( "webui.datagrid", $.webui.input, {
         var orderBy = cell.column.orderBy || cell.column.field;
         this._trigger("sort", null, { orderBy: orderBy, descending: direction === "desc" });
     },
-    refreshSize: function(){
+    refreshSize: function () {
+        if (this._cellResizing) {
+            return;
+        }
         this._renderWidth();
         this._renderHeight();
     },
