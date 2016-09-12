@@ -1,6 +1,7 @@
 ﻿(function( $, undefined ) {
 var dagaridRenders = {
-    numberEditor: function (value, datarow, cell, column, precision){
+    numberEditor: function (sender, args) {
+        var datarow = sender, value = args.value, column = args.cell.column, precision = args.precision;
         if($.isNumeric(value)){
             value = value.toFixed(precision);
         }
@@ -22,14 +23,17 @@ var dagaridRenders = {
             });
         return inputElement;
     },
-    intEditor: function(value, datarow, cell, column){
-        return dagaridRenders.numberEditor(value, datarow, cell, column, 0);
+    intEditor: function (sender, args) {
+        args.precision = 0;
+        return dagaridRenders.numberEditor(sender, args);
     },
-    number1Editor: function(value, datarow, cell, column){
-        return dagaridRenders.numberEditor(value, datarow, cell, column, 1);
+    number1Editor: function (sender, args) {
+        args.precision = 1;
+        return dagaridRenders.numberEditor(sender, args);
     },
-    number2Editor: function(value, datarow, cell, column){
-        return dagaridRenders.numberEditor(value, datarow, cell, column, 2);
+    number2Editor: function (sender, args) {
+        args.precision = 2;
+        return dagaridRenders.numberEditor(sender, args);
     }
 };
 var cloumnDefaultWidth = 100;
@@ -584,12 +588,34 @@ $.widget( "webui.datagrid", $.webui.input, {
             $.each(this.options.columns, function(i, column){
                 cell = {};
                 cell.column = column;
+                cell.render = self._getCellRender(column);
                 td = $("<td class='ui-datagrid-cell'></td>");
                 self.element.append(td);
                 cell.element = td;
                 self._renderCell(cell, data);
                 self._cells.push(cell);
             });
+        },
+        _getCellRender: function (column) {
+            var cellRender = null;
+            if (typeof (column.render) === "string") {
+                
+                if (column.render in dagaridRenders) {
+                    cellRender = dagaridRenders[column.render];
+                }
+                else if (column.render in $.webui.__renders) {
+                    cellRender = $.webui.__renders[column.render];
+                }
+                else {
+                    cellRender = $.tryEval(column.render);
+                }
+                
+            }
+            else if (column.render) {
+                cellRender = column.render;
+            }
+            
+            return cellRender;
         },
         _renderNumberCell: function(){
             if(this.options.showNumberCell){
@@ -617,32 +643,14 @@ $.widget( "webui.datagrid", $.webui.input, {
             }
         },
         _renderCell: function(td, data){
-            var self = this, cell = td.element, column = td.column, fieldValue = null, renderValue;
+            var self = this, cell = td.element, column = td.column, cellRender = td.render, fieldValue = null, renderValue;
             cell.empty();
             if(column.field in data){
                 fieldValue = data[column.field];
             }
-            if (typeof (column.render) === "string") {
-                var cellRender;
-                if (column.render in dagaridRenders) {
-                    cellRender = dagaridRenders[column.render];
-                }
-                else if (column.render in $.webui.__renders) {
-                    cellRender = $.webui.__renders[column.render];
-                }
-                else {
-                    cellRender = window[column.render];
-                }
-                renderValue = cellRender(fieldValue, this, cell, column);
-                if(typeof renderValue === "string"){
-                    cell.html(renderValue).attr("title", renderValue);
-                }
-                else if(typeof renderValue === "object"){
-                    cell.append(renderValue);
-                }
-            }
-            else if(column.render){
-                renderValue = column.render(self.element, { data: data, value: fieldValue });
+
+            if (cellRender) {
+                renderValue = cellRender(self, { data: data, value: fieldValue, cell: td });
                 if (typeof renderValue === "string") {
                     cell.html(renderValue).attr("title", renderValue);
                 }

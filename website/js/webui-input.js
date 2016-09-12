@@ -180,7 +180,7 @@
             _getText: function(value){
                 var text = value;
                 if(jQuery.isFunction(this._render)){
-                    text = this._render(value);
+                    text = this._render(this, { value: value });
                 }
                 return text;
             },
@@ -216,28 +216,33 @@
     );
 
     $.webui.__renders = {
-        int: function(value){
+        int: function (sender, args) {
+            var value = args.value;
             if($.isNumeric(value)){
                 return value.toFixed(0);
             }
             return value;
         },
-        number1: function(value){
+        number1: function (sender, args) {
+            var value = args.value;
             if($.isNumeric(value)){
                 return value.toFixed(1);
             }        
             return value;
         },
-        number2: function(value){
+        number2: function (sender, args) {
+            var value = args.value;
             if($.isNumeric(value)){
                 return value.toFixed(2);
             }
             return value;
         },
-        shifou: function(value){
+        shifou: function (sender, args) {
+            var value = args.value;
             return value ? "是" : "否";
         },
-        name: function(value){
+        name: function (sender, args) {
+            var value = args.value;
             if($.isArray(value)){
                 value = $.map(value, function(obj){
                     return obj.name;
@@ -249,7 +254,8 @@
             }
             return "";
         },
-        code: function (value) {
+        code: function (sender, args) {
+            var value = args.value;
             if ($.isArray(value)) {
                 value = $.map(value, function (obj) {
                     return obj.code;
@@ -261,7 +267,8 @@
             }
             return "";
         },
-        nameMultiRow: function(value){
+        nameMultiRow: function (sender, args) {
+            var value = args.value;
             if($.isArray(value)){
                 value = $.map(value, function(obj){
                     return obj.name;
@@ -270,10 +277,12 @@
             }
             return "";
         },
-        date: function(value){
+        date: function (sender, args) {
+            var value = args.value;
             return $.formatDate(value);
         },
-        dateRange: function(value){
+        dateRange: function (sender, args) {
+            var value = args.value;
             if(value){
                 if(value.start === null && value.end !== null){
                     return  $.formatDate(value.end) + "以前";
@@ -287,13 +296,15 @@
             }
             return "";
         },
-        dateTime: function(value){
+        dateTime: function (sender, args) {
+            var value = args.value;
             if(value){
                 return  $.formatDateTime(value);
             }
             return "";
         },
-        dateTimeRange: function(value){
+        dateTimeRange: function (sender, args) {
+            var value = args.value;
             if(value){
                 if(value.start === null && value.end !== null){
                     return  $.formatDateTime(value.end) + "以前";

@@ -195,6 +195,14 @@ jQuery.extend({
             scope = scope[n];
         }
         return scope;
+    },
+    tryEval: function (s) {
+        try{
+            return eval(s);
+        }
+        catch (e) {
+            return null;
+        }
     }
 });
 
