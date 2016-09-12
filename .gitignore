@@ -37,3 +37,4 @@ logs/
 phantomjs.exe
 pageTest.png
 node_modules/
+dist/

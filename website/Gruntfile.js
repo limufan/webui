@@ -79,7 +79,7 @@ module.exports = function (grunt) {
                 dest: "dist/webui.js"
             },
             css: {
-                src: ["css/webui.css", "css/webui-datepicker.css", "jquery-ui.css"],
+                src: ["css/webui.css", "css/webui-datepicker.css", "css/jquery-ui.css"],
                 dest: "dist/webui.css"
             }
         },
