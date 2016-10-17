@@ -54,9 +54,11 @@ $.widget( "webui.datagrid", $.webui.input, {
         readonly: false,
         hideHeader: false,
         bordered: true,
-        textWrap: false
+        textWrap: false,
+        showEmptyMessae: true
     },
-    _onCreated: function() {
+    _onCreated: function () {
+        this._showEmptyMessae = this.options.showEmptyMessae;
         this._defaultValue = this.options.data;
         this._footer = this.options.footer;
         var self = this, header, headerContent, body, bodyContent;
@@ -91,6 +93,7 @@ $.widget( "webui.datagrid", $.webui.input, {
             this._renderHeader();
         }
         this.refreshSize();
+        this._renderEmptyMessageElement();
         $(window).resize(function() {
             self.refreshSize();
         });
@@ -179,6 +182,12 @@ $.widget( "webui.datagrid", $.webui.input, {
         }else{
             return "desc";
         }
+    },
+    _renderEmptyMessageElement: function(){
+        this._emptyMessageElement = $('<div id="datagridEmptyMessage" style="display: none;text-align:center;">无</div>');
+        this._body.append(this._emptyMessageElement);
+        var headerWidth = this._header.find("table").width();
+        this._emptyMessageElement.width(headerWidth);
     },
     sortBy: function(columnName, direction){
         var cells, cell;
@@ -293,6 +302,11 @@ $.widget( "webui.datagrid", $.webui.input, {
             $.each(this.options.data, function(i, data){
                 self._renderRow(data);
             });
+        }
+        if (this._rows.length == 0 && this._showEmptyMessae) {
+            this._emptyMessageElement.show();
+        } else {
+            this._emptyMessageElement.hide();
         }
         this._renderFooter();
     },
