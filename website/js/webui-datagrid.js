@@ -55,7 +55,7 @@ $.widget( "webui.datagrid", $.webui.input, {
         hideHeader: false,
         bordered: true,
         textWrap: false,
-        showEmptyMessae: true
+        showEmptyMessae: false
     },
     _onCreated: function () {
         this._showEmptyMessae = this.options.showEmptyMessae;
