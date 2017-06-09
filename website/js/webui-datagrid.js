@@ -303,7 +303,7 @@ $.widget( "webui.datagrid", $.webui.input, {
                 self._renderRow(data);
             });
         }
-        if (this._rows.length == 0 && this._showEmptyMessae) {
+        if (this._rows.length === 0 && this._showEmptyMessae) {
             this._emptyMessageElement.show();
         } else {
             this._emptyMessageElement.hide();
